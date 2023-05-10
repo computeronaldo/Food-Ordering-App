@@ -32,6 +32,21 @@ const cartReducer = (state, action) => {
         },
       ],
     };
+  } else if (action.type === "DELETE_FROM_CART") {
+    const targetIndex = state.cartItems.findIndex(
+      (cartItem) => cartItem.id === action.val.id
+    );
+
+    const updatedItems = state.cartItems;
+    if (updatedItems[targetIndex].amount === 1) {
+      updatedItems.splice(targetIndex, 1);
+    } else {
+      updatedItems[targetIndex].amount =
+        state.cartItems[targetIndex].amount - 1;
+    }
+    return {
+      cartItems: [...updatedItems],
+    };
   }
 
   return {
@@ -48,7 +63,9 @@ export const CartContextProvider = (props) => {
     dispatchCart({ type: "ADD_TO_CART", val: item });
   };
 
-  const deleteFromCartHandler = (id) => {};
+  const deleteFromCartHandler = (id) => {
+    dispatchCart({ type: "DELETE_FROM_CART", val: id });
+  };
 
   return (
     <CartContext.Provider

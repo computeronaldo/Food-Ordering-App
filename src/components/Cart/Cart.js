@@ -5,7 +5,7 @@ import CartContext from "../../store/cart-context";
 import { useContext } from "react";
 
 const Cart = (props) => {
-  const { cartItems, addToCart } = useContext(CartContext);
+  const { cartItems, addToCart, deleteFromCart } = useContext(CartContext);
   const items = cartItems["cartItems"];
 
   const totalAmount = items
@@ -30,6 +30,7 @@ const Cart = (props) => {
               price: item.price,
             })
           }
+          onRemove={() => deleteFromCart({ id: item.id })}
         />
       ))}
     </ul>
