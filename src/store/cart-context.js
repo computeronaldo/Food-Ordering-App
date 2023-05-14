@@ -70,7 +70,7 @@ export const CartContextProvider = (props) => {
   return (
     <CartContext.Provider
       value={{
-        cartItems: cartItemsState,
+        cartItems: cartItemsState.cartItems,
         addToCart: addToCartHandler,
         deleteFromCart: deleteFromCartHandler,
       }}

@@ -6,9 +6,8 @@ import { useContext } from "react";
 
 const Cart = (props) => {
   const { cartItems, addToCart, deleteFromCart } = useContext(CartContext);
-  const items = cartItems["cartItems"];
 
-  const totalAmount = items
+  const totalAmount = cartItems
     .reduce(function (previousValue, currentValue) {
       return previousValue + currentValue.price * currentValue.amount;
     }, 0)
@@ -16,7 +15,7 @@ const Cart = (props) => {
 
   const CartRenderItems = (
     <ul className={classes["cart-items"]}>
-      {items.map((item) => (
+      {cartItems.map((item) => (
         <CartItem
           key={item.id}
           name={item.name}
