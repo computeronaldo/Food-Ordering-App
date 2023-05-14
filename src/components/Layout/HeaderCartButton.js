@@ -5,9 +5,8 @@ import classes from "./HeaderCartButton.module.css";
 
 const HeaderCartButton = (props) => {
   const { cartItems } = useContext(CartContext);
-  const items = cartItems["cartItems"];
 
-  const itemCount = items.reduce(function (previousValue, currentValue) {
+  const itemCount = cartItems.reduce(function (previousValue, currentValue) {
     return previousValue + currentValue.amount;
   }, 0);
   return (
