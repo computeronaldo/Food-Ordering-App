@@ -1,10 +1,13 @@
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
+import Checkout from "./Checkout";
 import classes from "./Cart.module.css";
 import CartContext from "../../store/cart-context";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const Cart = (props) => {
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+
   const { cartItems, addToCart, deleteFromCart } = useContext(CartContext);
 
   const totalAmount = cartItems
@@ -35,6 +38,20 @@ const Cart = (props) => {
     </ul>
   );
 
+  const orderHandler = () => {
+    setIsCheckingOut(true);
+  };
+
+  const submitOrderHandler = (userData) => {
+    fetch("https://react-http-479d8-default-rtdb.firebaseio.com/orders.json", {
+      method: "POST",
+      body: JSON.stringify({
+        user: userData,
+        orderedItems: cartItems,
+      }),
+    });
+  };
+
   return (
     <Modal closeModal={props.closeModal}>
       {CartRenderItems}
@@ -42,12 +59,19 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>${totalAmount}</span>
       </div>
-      <div className={classes.actions}>
-        <button onClick={props.closeModal} className={classes["button--alt"]}>
-          Cancel
-        </button>
-        <button className={classes.button}>Order</button>
-      </div>
+      {isCheckingOut && (
+        <Checkout onCancel={props.closeModal} onConfirm={submitOrderHandler} />
+      )}
+      {!isCheckingOut && (
+        <div className={classes.actions}>
+          <button onClick={props.closeModal} className={classes["button--alt"]}>
+            Cancel
+          </button>
+          <button className={classes.button} onClick={orderHandler}>
+            Order
+          </button>
+        </div>
+      )}
     </Modal>
   );
 };
