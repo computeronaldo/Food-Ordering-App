@@ -15,6 +15,10 @@
     margin: 1rem 0;
   }
   
+  .actions-center {
+    text-align: center;
+  }
+
   .actions {
     text-align: right;
   }
@@ -29,6 +33,24 @@
     margin-left: 1rem;
   }
   
+  .actions-center button {
+    font: inherit;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid #8a2b06;
+    padding: 0.5rem 2rem;
+    border-radius: 25px;
+    margin-left: 1rem;
+  }
+
+  .actions-center button:hover,
+  .actions-center button:active {
+    background-color: #5a1a01;
+    border-color: #5a1a01;
+    color: white;
+  }
+  
+
   .actions button:hover,
   .actions button:active {
     background-color: #5a1a01;
